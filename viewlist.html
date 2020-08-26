@@ -209,6 +209,48 @@
             margin-top: 10px;
             font-size: 13px;
         }
+        footer{
+        background-color: black;
+        padding: 1rem;
+    }
+    footer h1, li, hr{
+        color: blanchedalmond;
+    }
+    footer ul{
+        list-style: none;
+    }
+    footer ul li{
+        padding-top: 5px;
+    }
+    footer .heading h1{
+        color: #98817b;
+        font-weight: bold;
+        padding-left: 0.5rem;
+    }
+    footer hr{
+        border: 1px solid blanchedalmond;
+        width: 80%;
+        align-content: center;
+    }
+    footer .copyright{
+        color: blanchedalmond;
+        text-align: center;
+    }
+    footer .copyright span{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .nav-bar{
+        background-color: black;
+        padding: 1rem;
+    }
+    .nav-bar ul a{
+        color:blanchedalmond;
+        padding-left: 1rem;
+        font-weight: bolder;
+        font-size: 30px;
+        display: inline;
+        text-decoration: none;
+    }
     </style>
     <script>
         $(document).ready(function () {
@@ -218,6 +260,17 @@
 </head>
 
 <body>
+
+    <div class="nav-bar">
+
+        <ul>
+           <a href="#">HOME</a>
+           <a href="#">BOOK LIST</a>
+        </ul>
+
+    </div>
+
+
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -314,6 +367,50 @@
             </div>
         </div>
     </div>
+
+
+    <footer>
+
+        <div class="row">
+
+            <div class="col heading">
+                <h1 style="font-size: 29px;">Library Management System</span></h1>
+            </div>
+            <div class="col rohith">
+                <ul>
+                    <li>T.R. Rohith - Team Coordinater</li>
+                    <li><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">9880522172</span></li> 
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">tt1878@srmist.edu.in</span></li> 
+                </ul>
+            </div>
+            <div class="col siri">
+                <ul>
+                    <li>Epsisri Potluri</li>
+                    <li><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">9347465324</span></li> 
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">ej2945@srmist.edu.in</span></li>
+                </ul>
+            </div>
+            <div class="col rohith">
+                <ul>
+                    <li style="margin-left: -0.5rem;">Janaswamy Samyukta</li>
+                    <li style="margin-left: -0.5rem;"><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">7358404806</span></li>
+                    <li style="margin-left: -0.5rem;"><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">jj2787@srmist.edu.in</span></li> 
+                </ul>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="copyright">
+            <i class="fa fa-copyright" aria-hidden="true"><span>Copyright.All rights reserved.</span></i>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
