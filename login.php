@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,28 +45,51 @@
 </head>
 
 <body>
-
-
+    <?php
+    require('db.php');
+    // When form submitted, check and create user session.
+    if (isset($_POST['email'])) {
+        $username = stripslashes($_REQUEST['email']);    // removes backslashes
+        $username = mysqli_real_escape_string($con, $username);
+        $password = stripslashes($_REQUEST['password']);
+        $password = mysqli_real_escape_string($con, $password);
+        // Check user is exist in the database
+        $query = "SELECT * FROM `user` WHERE username='$username' AND password='" . md5($password) . "'";
+        $result = mysqli_query($con, $query);
+        $rows = mysqli_num_rows($result);
+        if ($rows == 1) {
+            $_SESSION['username'] = $username;
+            // Redirect to user dashboard page
+    ?>
+            <script type="text/javascript">
+                window.location = "index.php";
+            </script>
+    <?php
+        } else {
+            echo "<div class='login-form'>
+                  <h3>Incorrect Username/password.</h3><br/>
+                  </div>";
+        }
+    }
+    ?>
     <div class="container">
-        <h1 class="text-center">Library Management System</h1>
         <div class="login-form">
-            <form action="/examples/actions/confirmation.php" method="post">
+            <form action="" method="post">
                 <h2 class="text-center">Log in</h2>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Username" required="required">
+                    <input type="email" class="form-control" name="email" placeholder="Username" required="required">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="required">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Log in</button>
                 </div>
                 <div class="clearfix">
-                    <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
-                    <a href="reset_password.html" class="float-right">Forgot Password?</a>
+                    <a href="reset_password.php" class="float-right">Forgot Password?</a>
                 </div>
             </form>
-            <p class="text-center"><a href="sign_up.html">Create an Account</a></p>
+            <p class="text-center"><a href="sign_up.php">Create an Account</a></p>
         </div>
     </div>
 </body>

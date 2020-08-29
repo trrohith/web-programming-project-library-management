@@ -121,16 +121,51 @@
 </head>
 
 <body>
+	<?php
+	require('db.php');
+	// When form submitted, insert values into the database.
+	if (isset($_REQUEST['email'])) {
+		// removes backslashes
+		$name = stripslashes($_REQUEST['first_name'] . " " . $_REQUEST['last_name']);
+		//escapes special characters in a string
+		$name = mysqli_real_escape_string($con, $name);
+		$email    = stripslashes($_REQUEST['email']);
+		$email    = mysqli_real_escape_string($con, $email);
+		$password = stripslashes($_REQUEST['password']);
+		$password = mysqli_real_escape_string($con, $password);
+		$query    = "INSERT into `user` (name, password, username)
+					 VALUES ('$name', '" . md5($password) . "', '$email')";
+		$check_email = mysqli_query($con, "SELECT username FROM user where username = '$email'");
+		if (mysqli_num_rows($check_email) > 0) {
+			echo "<div class='signup-form'><h3>Email already registered.</h3></div>";
+		} else {
+			if ($password == $_REQUEST['confirm_password']) {
+				$result   = mysqli_query($con, $query);
+				if ($result) {
+					echo "<div class='signup-form'>
+                  <h3>You are registered successfully.</h3><br/>
+                  <p class='link'>Click here to <a href='login.php'>Login</a></p>
+                  </div>";
+				} else {
+					echo "<div class='signup-form'>
+                  <h3>Required fields are missing.</h3><br/>
+                  <p class='link'>Click here to <a href='registration.php'>registration</a> again.</p>
+                  </div>";
+				}
+			} else {
+				echo "<div class='signup-form'><h3>Password and confirm password do not match, please try again.</h3></div>";
+			}
+		}
+	}
+	?>
 	<div class="signup-form">
-		<form action="/examples/actions/confirmation.php" method="post">
+		<form action="" method="post">
 			<h2>Sign Up</h2>
 			<p class="hint-text">Create your account. It's free and only takes a minute!</p>
 			<div class="form-group">
 				<div class="row">
-					<div class="col-xs-6"><input type="text" class="form-control" name="first_name"
-							placeholder="First Name" required="required"></div>
-					<div class="col-xs-6"><input type="text" class="form-control" name="last_name"
-							placeholder="Last Name" required="required"></div>
+					<div class="col-xs-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
+					<div class="col-xs-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -140,15 +175,14 @@
 				<input type="password" class="form-control" name="password" placeholder="Password" required="required">
 			</div>
 			<div class="form-group">
-				<input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password"
-					required="required">
+				<input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-success btn-lg btn-block">Sign Up</button>
 			</div>
 		</form>
-		<div class="text-center">Already have an account? <a href="login.html">Sign in</a></div>
-		<div class="text-center"><a href="reset_password.html" class="float-right">Forgot Password?</a></div>
+		<div class="text-center">Already have an account? <a href="login.php">Sign in</a></div>
+		<div class="text-center"><a href="reset_password.php" class="float-right">Forgot Password?</a></div>
 	</div>
 </body>
 
