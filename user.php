@@ -1,4 +1,8 @@
-
+<?php
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+require('db.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,7 +152,7 @@ $(document).ready(function(){
 	var actions = $("table td:last-child").html();
 	// Append table with add row form on add new button click
     $(".add-new").click(function(){
-        window.location.href = "reserve.html"
+        window.location.href = "reserve.php"
     });
 });
 </script>
@@ -159,7 +163,7 @@ $(document).ready(function(){
 
         <ul>
             <u><a href="#">HOME</a></u>
-            <a href="reserve.html">RESERVE A BOOK</a>
+            <a href="reserve.php">RESERVE A BOOK</a>
         </ul>
 
     </div>
@@ -171,7 +175,7 @@ $(document).ready(function(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Book <b>Details</b> for $username</h2></div>
+                    <div class="col-sm-8"><h2>Book <b>Details</b> for <?php echo $_SESSION['name'] ?></h2></div>
                     <div class="col-sm-4">
                         <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Take a new book</button>
                     </div>
@@ -187,30 +191,20 @@ $(document).ready(function(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>To Kill a Mockingbird</td>
-                        <td>8th August 2020</td>
-                        <td>20th August 2020</td>
-                        <td>
-                            <a class="delete" title="Return" data-toggle="tooltip"><i class="material-icons">assignment_return</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>One Hundred Years of Solitude</td>
-                        <td>10th August 2020</td>
-                        <td>15th August 2020</td>
-                        <td>
-                            <a class="delete" title="Return" data-toggle="tooltip"><i class="material-icons">assignment_return</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Beloved</td>
-                        <td>14th August 2020</td>
-                        <td>25th August 2020</td>
-                        <td>
-                            <a class="delete" title="Return" data-toggle="tooltip"><i class="material-icons">assignment_return</i></a>
-                        </td>
-                    </tr>      
+                    <?php
+                $query = "SELECT book.name, record.take_time, record.return_time FROM record LEFT JOIN book ON book_uid=record.book_uid WHERE record.user_uid='" . $_SESSION['uid'] . "' AND record.returned=0";
+                $result = mysqli_query($con, $query);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>".$row['name']."</td>";
+                    echo "<td>".$row['take_time']."</td>";
+                    echo "<td>".$row['return_time']."</td>";
+                    echo "<td>";
+                    echo "<a class=\"delete\" title=\Return\" data-toggle=\"tooltip\"><i class=\"material-icons\">assignment_return</i></a>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
                 </tbody>
             </table>
         </div>

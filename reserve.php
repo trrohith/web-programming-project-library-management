@@ -1,3 +1,8 @@
+<?php
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+require('db.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -284,7 +289,7 @@
     <div class="nav-bar">
 
         <ul>
-            <a href="user.html">HOME</a>
+            <a href="user.php">HOME</a>
             <u><a href="#">RESERVE A BOOK</a></u>
         </ul>
 
@@ -329,42 +334,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-status="active">
-                            <td>1</td>
-                            <td>To Kill a Mockingbird</td>
-                            <td>Harper Lee</td>
-                            <td><span class="label label-success">10 copies left</span></td>
-                            <td><a href="#reserveBook" class="btn btn-sm manage" data-toggle="modal">Reserve</a></td>
-                        </tr>
-                        <tr data-status="expired">
-                            <td>2</td>
-                            <td>The Great Gatsby</td>
-                            <td>F. Scott Fitzgerald</td>
-                            <td><span class="label label-danger">All copies taken</span></td>
-                            <td><a href="#reserveBook" class="btn btn-sm manage disabled" data-toggle="modal"
-                                    disabled>Reserve</a></td>
-                        </tr>
-                        <tr data-status="active">
-                            <td>3</td>
-                            <td>One Hundred Years of Solitude</td>
-                            <td>Gabriel García Márquez</td>
-                            <td><span class="label label-success">40 copies left</span></td>
-                            <td><a href="#reserveBook" class="btn btn-sm manage" data-toggle="modal">Reserve</a></td>
-                        </tr>
-                        <tr data-status="active">
-                            <td>4</td>
-                            <td>Beloved</td>
-                            <td>Toni Morrison</td>
-                            <td><span class="label label-success">25 copies left</span></td>
-                            <td><a href="#reserveBook" class="btn btn-sm manage" data-toggle="modal">Reserve</a></td>
-                        </tr>
-                        <tr data-status="inactive">
-                            <td>5</td>
-                            <td>A Passage to India</td>
-                            <td>E.M. Forster</td>
-                            <td><span class="label label-warning">3 copies left</span></td>
-                            <td><a href="#reserveBook" class="btn btn-sm manage" data-toggle="modal">Reserve</a></td>
-                        </tr>
+                    <?php
+                $query = "SELECT * FROM book WHERE 1";
+                $result = mysqli_query($con, $query);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $copies = $row['left'];
+                    echo "<tr data-status=\"";
+                    if($copies>9){
+                        echo "active";
+                    }
+                    elseif($copies>0){
+                        echo "inactive";
+                    }
+                    else{
+                        echo "expired";
+                    }
+                    echo "\">";
+                    echo "<td>".$row['uid']."</td>";
+                    echo "<td>".$row['name']."</td>";
+                    echo "<td>".$row['author']."</td>";
+                    echo "<td><span class=\"label label-";
+                    if($copies>9){
+                        echo "success\">".$copies." copies left";
+                    }
+                    elseif($copies>0){
+                        echo "warning\">".$copies." copies left";
+                    }
+                    else{
+                        echo "danger\">All copies taken";
+                    }
+                    echo "</span></td>";
+                    echo "<td>";
+                    echo "<a href=\"#reserveBook\" class=\"btn btn-sm manage".($copies==0?"disabled":"")."\" data-toggle=\"modal\"".($copies==0?"disabled":"").">Reserve</a>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
                     </tbody>
                 </table>
             </div>
@@ -387,11 +392,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="btn-class">
-            <button type = "button" class="add">Add Book</button>
-            <button type = "button" class="update">Update</button>
     </div>
 
     <footer>
@@ -428,7 +428,7 @@
         <hr>
 
         <div class="copyright">
-            <i class="fa fa-copyright" aria-hidden="true"><span>Copyright.All rights reserved.</span></i>
+            <i class="fa fa-copyright" aria-hidden="true"><span>Copyright. All rights reserved.</span></i>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
