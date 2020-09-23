@@ -7,25 +7,50 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Book Details Form</title>
 </head>
-
+    <style>
+        body{
+            background-image: linear-gradient(#2f4f4f, #5f9f9f);
+            height: 100vh;
+            font-family: sans-serif;
+        }
+        .box{
+            width: 300px;
+            padding: 40px;
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            transform: translate(-50%);
+            background: #191919;
+            text-align: center;
+        }
+        .box input[type="text"], input[type="number"]{
+            border: 0;
+            background: none;
+            display: block;
+            margin: 5px auto;
+            text-align: center;
+            border: 2px solid #79cdcd;
+            padding: 10px 5px;
+            width: 200px;
+            outline: none;
+            color: white;
+            border-radius: 10px;
+            transition: 0.25s;
+        }
+        form input{
+            margin-top: 0.1rem;
+        }
+    </style>
 <body>
-    <form>
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
-        <label for="author">Author:</label><br>
-        <input type="text" id="author" name="author"><br>
-        <label for="author">Description:</label><br>
-        <input type="text" id="description" name="description"><br>
-        <label for="name">Total number of copies:</label><br>
-        <input type="number" id="total" name="total" min="1"><br>
-        <label for="name">Number of copies Left:</label><br>
-        <input type="number" id="left" name="left" min="1"><br>
-        <label for="author">Image URL:</label><br>
-        <input type="text" id="image" name="image"><br>
-        <label for="author">Video URL:</label><br>
-        <input type="text" id="video" name="video"><br>
-        <label for="author">Audio URL:</label><br>
-        <input type="text" id="audio" name="audio"><br>
+    <form class = "box">
+        <input type="text" id="name" name="name" placeholder="Name"><br>
+        <input type="text" id="author" name="author" placeholder="Author"><br>
+        <input type="text" id="description" name="description" placeholder="Description"><br>
+        <input type="number" id="total" name="total" min="1" placeholder="Total number of copies"><br>
+        <input type="number" id="left" name="left" min="1" placeholder="Number of copies left"><br>
+        <input type="text" id="image" name="image" placeholder="Image URL"><br>
+        <input type="text" id="video" name="video" placeholder="Video URL"><br>
+        <input type="text" id="audio" name="audio" placeholder="Audio URL"><br>
     </form>
 </body>
 
