@@ -221,12 +221,12 @@ require('db.php');
                             <th>Taken By</th>
                             <th>Taken On</th>
                             <th>Return By</th>
-                            <th>Returned</th>
+                            <th>Returned On</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                $query = "SELECT book.name, user.name AS username, record.take_time, record.return_time, record.returned FROM record LEFT JOIN book ON book_uid=record.book_uid LEFT JOIN user ON record.user_uid = user.uid WHERE record.user_uid='" . $_SESSION['uid'] . "'";
+                $query = "SELECT book.name, user.name AS username, record.take_time, record.return_time, record.actual_return FROM record LEFT JOIN book ON book_uid=record.book_uid LEFT JOIN user ON record.user_uid = user.uid WHERE record.user_uid='" . $_SESSION['uid'] . "'";
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
@@ -234,14 +234,7 @@ require('db.php');
                     echo "<td>".$row['username']."</td>";
                     echo "<td>".$row['take_time']."</td>";
                     echo "<td>".$row['return_time']."</td>";
-                    echo "<td>";
-                    if($row['returned']==0){
-                        echo "FALSE";
-                    }
-                    else{
-                        echo "TRUE";
-                    }
-                    echo "</td>";
+                    echo "<td>".$row['actual_return']."</td>";
                     echo "</tr>";
                 }
                 ?>

@@ -365,7 +365,7 @@ require('db.php');
                     }
                     echo "</span></td>";
                     echo "<td>";
-                    echo "<a href=\"#reserveBook\" class=\"btn btn-sm manage".($copies==0?"disabled":"")."\" data-toggle=\"modal\"".($copies==0?"disabled":"").">Reserve</a>";
+                    echo "<a href='reserveBook.php?uid=".$row['uid']."' class=\"btn btn-sm manage".($copies==0?"disabled":"")."\"".($copies==0?"disabled":"").">Reserve</a>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -375,25 +375,6 @@ require('db.php');
             </div>
         </div>
     </div>
-    <div id="reserveBook" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="icon-box">
-                        <i class="material-icons">&#xE876;</i>
-                    </div>
-                    <h4 class="modal-title w-100">Awesome!</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="text-center">Your book has been reserved.</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <footer>
 
         <div class="row">

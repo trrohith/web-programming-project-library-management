@@ -75,6 +75,9 @@ session_start();
     <div class="container">
         <div class="login-form">
             <form action="" method="post">
+                <div class="col-sm-5">
+                    <h2>Book <b>Management</b></h2>
+                </div>
                 <h2 class="text-center">Log in</h2>
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="Username" required="required">

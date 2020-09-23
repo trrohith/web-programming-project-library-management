@@ -259,17 +259,6 @@
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
-        function Remove() {
-            var txt;
-            var r = confirm("Are you sure you want to delete?");
-            if(r == "yes") {
-                x = document.getElementById('book');
-                prompt("Are you sure you want to delete" + x)
-            }
-            else{
-                prompt('cancel');
-            }
-        }
  
     </script>
 </head>
@@ -314,15 +303,13 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td id = "book">To Kill a Mockingbird</td>
+                            <td>To Kill a Mockingbird</td>
                             <td>05/08/2020</td>
                             <td>Harper Lee</td>
                             <td><span class="status text-success">&bull;</span> 10 copies left</td>
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
                                         class="material-icons">border_color</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"  onclick="Remove()" id = "del-1"><i
-                                        class="material-icons">&#xE5C9;</i></a>
                             </td>
                         </tr>
                         <tr>
@@ -334,8 +321,6 @@
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
                                         class="material-icons">border_color</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="Remove()"><i
-                                        class="material-icons">&#xE5C9;</i></a>
                             </td>
                         </tr>
                         <tr>
@@ -347,8 +332,6 @@
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
                                         class="material-icons">border_color</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"  onclick="Remove()"><i
-                                        class="material-icons">&#xE5C9;</i></a>
                             </td>
                         </tr>
                         <tr>
@@ -360,8 +343,6 @@
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
                                         class="material-icons">border_color</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"  onclick="Remove()"><i
-                                        class="material-icons">&#xE5C9;</i></a>
                             </td>
                         </tr>
                         <tr>
@@ -373,8 +354,6 @@
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
                                         class="material-icons">border_color</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"  onclick="Remove()"><i
-                                        class="material-icons">&#xE5C9;</i></a>
                             </td>
                         </tr>
                     </tbody>
