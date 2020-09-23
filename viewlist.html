@@ -262,14 +262,14 @@
         function Remove() {
             var txt;
             var r = confirm("Are you sure you want to delete?");
+            if(r == "yes") {
+                x = document.getElementById('book');
+                prompt("Are you sure you want to delete" + x)
             }
-        function add(){
-            var customerName = prompt("Please enter your name", "");
-            if (customerName!= null) {
-                document.getElementById("add").value = customerName;
+            else{
+                prompt('cancel');
             }
         }
-
  
     </script>
 </head>
@@ -295,7 +295,7 @@
                             <h2>Book <b>Management</b></h2>
                         </div>
                         <div class="col-sm-7">
-                            <a href="#" class="btn btn-secondary" onclick="add()"><i class="material-icons">&#xE147;</i> <span>Add New
+                            <a href="./edit_book.html" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New
                                     Book</span></a>
                         </div>
                     </div>
@@ -314,14 +314,14 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>To Kill a Mockingbird</td>
+                            <td id = "book">To Kill a Mockingbird</td>
                             <td>05/08/2020</td>
                             <td>Harper Lee</td>
                             <td><span class="status text-success">&bull;</span> 10 copies left</td>
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
                                         class="material-icons">border_color</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"  onclick="Remove()"><i
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"  onclick="Remove()" id = "del-1"><i
                                         class="material-icons">&#xE5C9;</i></a>
                             </td>
                         </tr>
