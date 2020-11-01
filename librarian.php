@@ -194,6 +194,7 @@ require('db.php');
         <ul>
             <u><a href="#">HOME</a></u>
             <a href="viewlist.php">BOOK LIST</a>
+            <a href='logout.php'>Logout</a>
         </ul>
 
     </div>

@@ -291,6 +291,7 @@ require('db.php');
         <ul>
             <a href="user.php">HOME</a>
             <u><a href="#">RESERVE A BOOK</a></u>
+            <a href='logout.php'>Logout</a>
         </ul>
 
     </div>
