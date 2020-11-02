@@ -1,3 +1,8 @@
+<?php
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+require('db.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,55 +216,66 @@
             margin-top: 10px;
             font-size: 13px;
         }
-        footer{
-        background-color: black;
-        padding: 1rem;
-    }
-    footer h1, li, hr{
-        color: blanchedalmond;
-    }
-    footer ul{
-        list-style: none;
-    }
-    footer ul li{
-        padding-top: 5px;
-    }
-    footer .heading h1{
-        color: #98817b;
-        font-weight: bold;
-        padding-left: 0.5rem;
-    }
-    footer hr{
-        border: 1px solid blanchedalmond;
-        width: 80%;
-        align-content: center;
-    }
-    footer .copyright{
-        color: blanchedalmond;
-        text-align: center;
-    }
-    footer .copyright span{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .nav-bar{
-        background-color: black;
-        padding: 1rem;
-    }
-    .nav-bar ul a{
-        color:blanchedalmond;
-        padding-left: 1rem;
-        font-weight: bolder;
-        font-size: 30px;
-        display: inline;
-        text-decoration: none;
-    }
+
+        footer {
+            background-color: black;
+            padding: 1rem;
+        }
+
+        footer h1,
+        li,
+        hr {
+            color: blanchedalmond;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            padding-top: 5px;
+        }
+
+        footer .heading h1 {
+            color: #98817b;
+            font-weight: bold;
+            padding-left: 0.5rem;
+        }
+
+        footer hr {
+            border: 1px solid blanchedalmond;
+            width: 80%;
+            align-content: center;
+        }
+
+        footer .copyright {
+            color: blanchedalmond;
+            text-align: center;
+        }
+
+        footer .copyright span {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .nav-bar {
+            background-color: black;
+            padding: 1rem;
+        }
+
+        .nav-bar ul a {
+            color: blanchedalmond;
+            padding-left: 1rem;
+            font-weight: bolder;
+            font-size: 30px;
+            display: inline;
+            text-decoration: none;
+        }
     </style>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
- 
     </script>
 </head>
 
@@ -268,8 +284,9 @@
     <div class="nav-bar">
 
         <ul>
-           <a href="librarian.html">HOME</a>
-           <u><a href="#">BOOK LIST</a></u>
+            <a href="librarian.php">HOME</a>
+            <u><a href="#">BOOK LIST</a></u>
+            <a href='logout.php'>Logout</a>
         </ul>
 
     </div>
@@ -284,7 +301,7 @@
                             <h2>Book <b>Management</b></h2>
                         </div>
                         <div class="col-sm-7">
-                            <a href="./edit_book.html" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New
+                            <a href="./edit_book.php" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New
                                     Book</span></a>
                         </div>
                     </div>
@@ -301,61 +318,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>To Kill a Mockingbird</td>
-                            <td>05/08/2020</td>
-                            <td>Harper Lee</td>
-                            <td><span class="status text-success">&bull;</span> 10 copies left</td>
-                            <td>
-                                <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
-                                        class="material-icons">border_color</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>The Great Gatsby</td>
-                            <td>05/08/2020</td>
-                            <td>F. Scott Fitzgerald</td>
-                            <td><span class="status text-danger">&bull;</span> All copies taken</td>
-                            <td>
-                                <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
-                                        class="material-icons">border_color</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>One Hundred Years of Solitude</td>
-                            <td>05/08/2020</td>
-                            <td>Gabriel García Márquez</td>
-                            <td><span class="status text-success">&bull;</span> 40 copies left</td>
-                            <td>
-                                <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
-                                        class="material-icons">border_color</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Beloved</td>
-                            <td>05/08/2020</td>
-                            <td>Toni Morrison</td>
-                            <td><span class="status text-success">&bull;</span> 25 copies left</td>
-                            <td>
-                                <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
-                                        class="material-icons">border_color</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>A Passage to India</td>
-                            <td>05/08/2020</td>
-                            <td>E.M. Forster</td>
-                            <td><span class="status text-warning">&bull;</span> 3 copies left</td>
-                            <td>
-                                <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
-                                        class="material-icons">border_color</i></a>
-                            </td>
-                        </tr>
+                        <?php
+                        $query = "SELECT * FROM book WHERE 1";
+                        $result = mysqli_query($con, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $copies = $row['left'];
+                            echo "<tr data-status=\"";
+                            if ($copies > 9) {
+                                echo "active";
+                            } elseif ($copies > 0) {
+                                echo "inactive";
+                            } else {
+                                echo "expired";
+                            }
+                            echo "\">";
+                            echo "<td>" . $row['uid'] . "</td>";
+                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td>" . $row['create_time'] . "</td>";
+                            echo "<td>" . $row['author'] . "</td>";
+                            echo "<td><span class=\"status text-";
+                            if ($copies > 9) {
+                                echo "success\">&bull;</span>" . $copies . " copies left";
+                            } elseif ($copies > 0) {
+                                echo "warning\">&bull;</span>" . $copies . " copies left";
+                            } else {
+                                echo "danger\">&bull;</span>All copies taken";
+                            }
+                            echo "</span></td>";
+                            echo "<td>";
+                            echo "<a href='edit_book.php?uid=" . $row['uid'] . "'  class=\"settings\" title=\"Settings\" data-toggle=\"tooltip\"><i class=\"material-icons\">border_color</i></a>";
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -373,14 +368,14 @@
             <div class="col rohith">
                 <ul>
                     <li>T.R. Rohith - Team Coordinater</li>
-                    <li><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">9880522172</span></li> 
-                    <li><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">tt1878@srmist.edu.in</span></li> 
+                    <li><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">9880522172</span></li>
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">tt1878@srmist.edu.in</span></li>
                 </ul>
             </div>
             <div class="col siri">
                 <ul>
                     <li>Epsisri Potluri</li>
-                    <li><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">9347465324</span></li> 
+                    <li><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">9347465324</span></li>
                     <li><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">ej2945@srmist.edu.in</span></li>
                 </ul>
             </div>
@@ -388,7 +383,7 @@
                 <ul>
                     <li style="margin-left: -0.5rem;">Janaswamy Samyukta</li>
                     <li style="margin-left: -0.5rem;"><i class="fa fa-phone-square" aria-hidden="true"></i><span style="padding-left: 10px;">7358404806</span></li>
-                    <li style="margin-left: -0.5rem;"><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">jj2787@srmist.edu.in</span></li> 
+                    <li style="margin-left: -0.5rem;"><i class="fa fa-envelope" aria-hidden="true"></i><span style="padding-left: 10px;">jj2787@srmist.edu.in</span></li>
                 </ul>
             </div>
 
