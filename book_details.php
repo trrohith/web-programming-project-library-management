@@ -1,10 +1,31 @@
+<?php
+if (!isset($_GET['uid'])) {
+    echo "No book selected";
+    exit;
+}
+$uid = $_GET['uid'];
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+require('db.php');
+
+$query = "SELECT * FROM book WHERE uid=$uid";
+$result = mysqli_query($con, $query);
+$rows = mysqli_num_rows($result);
+
+if ($rows < 1) {
+    echo "Invalid book selection";
+    exit;
+}
+$row = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TO KILL A MOCKING BIRD</title>
+    <title><?php echo $row['name'] ?></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -14,7 +35,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <style>
-
         body {
             font-family: 'Varela Round', sans-serif;
             margin: 0;
@@ -22,12 +42,14 @@
             height: 100vh;
         }
 
-        .intro{
+        .intro {
             background-image: linear-gradient(red, #ed2939);
             margin-bottom: 5rem;
         }
 
-        .title h3, h1, p{
+        .title h3,
+        h1,
+        p {
             margin: 0.5rem;
             align-content: center;
             justify-content: center;
@@ -35,21 +57,21 @@
             color: white;
         }
 
-        .title h3{
+        .title h3 {
             margin-top: 9rem;
             text-emphasis: none;
             text-decoration: none;
         }
 
-        .title h1{
+        .title h1 {
             font-size: 45px;
             font-weight: bolder;
         }
 
-        .title button{
+        .title button {
             margin-top: 1rem;
             padding: 0.5rem;
-            font-size: 15px;    
+            font-size: 15px;
             background-color: white;
             border: 2px solid white;
             transition-duration: 0.4s;
@@ -59,11 +81,11 @@
             margin-bottom: 7rem;
         }
 
-        .title button:hover{
+        .title button:hover {
             background-image: linear-gradient(red, #ed2939);
         }
 
-        .image img{
+        .image img {
             margin-top: 7rem;
             margin-bottom: 7rem;
             margin-left: -10rem;
@@ -71,17 +93,17 @@
             width: 300px;
         }
 
-        .desc{
+        .desc {
             margin-bottom: 5rem;
         }
 
-        .desc .novel-img img{
+        .desc .novel-img img {
             height: 35rem;
             width: 27rem;
             margin-left: 10rem;
         }
 
-        .desc .card{
+        .desc .card {
             padding: 2rem;
             height: 20rem;
             z-index: 1;
@@ -90,53 +112,54 @@
             box-shadow: 5px 10px wheat;
         }
 
-        .desc .card a, p{
+        .desc .card a,
+        p {
             text-decoration: none;
             margin-top: 1rem;
             color: black;
         }
 
-        .desc .card h1{
+        .desc .card h1 {
             color: black;
             margin-top: 1rem;
             font-size: 40px;
         }
-
     </style>
 
 </head>
+
 <body>
-    
+
     <div class="row intro">
         <div class="col title col-md-9">
-            <h3>AUTHOR : HARPER LEE</h3>
-            <h1>TO KILL A MOCKING BIRD</h1>
-            <!-- about the novel -->
-            <p style="color: white">Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Ad commodi alias illum at ratione minima
-                dignissimos esse dolores quae cumque!</p>
-            <button>Learn More</button>
+            <h3>AUTHOR : <?php echo $row['author'] ?></h3>
+            <h1><?php echo $row['name'] ?></h1>
+            <p style="color: white"><?php echo $row['description'] ?></p>
         </div>
         <div class="col image col-md-3">
-                <!-- image of the novel(cover page), if you can include it else keep this static -->
-            <img src="./res/book.jpg" alt="novel"> 
+            <img src="./res/book.jpg" alt="novel">
         </div>
     </div>
 
     <div class="row container desc">
         <div class="col novel-img col-md-6">
-            <!-- image of the author -->
-            <img src="./res/novel-1.png" alt="author"> 
+            <img src="<?php echo $row['image_url'] ?>" alt="author">
         </div>
         <div class="col card col-md-6">
-            <h1>Harper Lee</h1>
-            <!-- about the author -->
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Ipsam molestiae beatae ullam sit totam cupiditate
-                 delectus. Obcaecati perferendis rerum repellat.</p>
-            <a href="#" style="text-align: center;">Video url</a>
-            <a href="#" style="text-align: center;">Audio url</a>
+            <h1><?php echo $row['author'] ?></h1>
+            <p><?php echo $row['description'] ?></p>
+            <br><video width="320" height="240" controls>
+                    <source src="<?php echo $row['video_url'] ?>" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            <br><audio controls>
+                    <source src="<?php echo $row['audio_url'] ?>" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
         </div>
     </div>
 
 
 </body>
+
 </html>

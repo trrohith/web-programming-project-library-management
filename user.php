@@ -233,11 +233,11 @@ require('db.php');
                         $result = mysqli_query($con, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
-                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td><a href='book_details.php?uid=" . $row['bookUID'] . "'>" . $row['name'] . "</a></td>";
                             echo "<td>" . $row['take_time'] . "</td>";
                             echo "<td>" . $row['return_time'] . "</td>";
                             echo "<td>";
-                            echo "<a href='returnBook.php?uid=".$row['uid']."&bookUID=".$row['bookUID']."'><i class=\"material-icons\">assignment_return</i></a>";
+                            echo "<a href='returnBook.php?uid=" . $row['uid'] . "&bookUID=" . $row['bookUID'] . "'><i class=\"material-icons\">assignment_return</i></a>";
                             echo "</td>";
                             echo "</tr>";
                         }

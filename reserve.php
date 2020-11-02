@@ -352,7 +352,7 @@ require('db.php');
                     }
                     echo "\">";
                     echo "<td>".$row['uid']."</td>";
-                    echo "<td>".$row['name']."</td>";
+                    echo "<td><a href='book_details.php?uid=".$row['uid']."'>".$row['name']."</a></td>";
                     echo "<td>".$row['author']."</td>";
                     echo "<td><span class=\"label label-";
                     if($copies>9){

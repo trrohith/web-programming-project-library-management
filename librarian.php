@@ -227,11 +227,11 @@ require('db.php');
                     </thead>
                     <tbody>
                     <?php
-                $query = "SELECT book.name, user.name AS username, record.take_time, record.return_time, record.actual_return FROM record LEFT JOIN book ON book_uid=record.book_uid LEFT JOIN user ON record.user_uid = user.uid WHERE record.user_uid='" . $_SESSION['uid'] . "'";
+                $query = "SELECT book.uid, book.name, user.name AS username, record.take_time, record.return_time, record.actual_return FROM record LEFT JOIN book ON book_uid=record.book_uid LEFT JOIN user ON record.user_uid = user.uid WHERE 1";
                 $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
-                    echo "<td>".$row['name']."</td>";
+                    echo "<td><a href='book_details.php?uid=".$row['uid']."'>".$row['name']."</a></td>";
                     echo "<td>".$row['username']."</td>";
                     echo "<td>".$row['take_time']."</td>";
                     echo "<td>".$row['return_time']."</td>";
