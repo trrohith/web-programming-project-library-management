@@ -5,6 +5,7 @@ require('db.php');
 $newBook = false;
 if (!isset($_GET['uid'])) {
 	$newBook = true;
+	$uid = 0;
 } else {
 	$uid = $_GET['uid'];
 
@@ -54,21 +55,21 @@ $title = $newBook ? "New Book" : $row['name'];
 			border-radius: 3px;
 		}
 
-		.signup-form {
+		.book-form {
 			width: 400px;
 			margin: 0 auto;
 			padding: 30px 0;
 		}
 
-		.signup-form h2 {
+		.book-form h2 {
 			color: #636363;
 			margin: 0 0 15px;
 			position: relative;
 			text-align: center;
 		}
 
-		.signup-form h2:before,
-		.signup-form h2:after {
+		.book-form h2:before,
+		.book-form h2:after {
 			content: "";
 			height: 2px;
 			width: 22%;
@@ -78,21 +79,21 @@ $title = $newBook ? "New Book" : $row['name'];
 			z-index: 2;
 		}
 
-		.signup-form h2:before {
+		.book-form h2:before {
 			left: 0;
 		}
 
-		.signup-form h2:after {
+		.book-form h2:after {
 			right: 0;
 		}
 
-		.signup-form .hint-text {
+		.book-form .hint-text {
 			color: #999;
 			margin-bottom: 30px;
 			text-align: center;
 		}
 
-		.signup-form form {
+		.book-form form {
 			color: #999;
 			border-radius: 3px;
 			margin-bottom: 15px;
@@ -101,43 +102,43 @@ $title = $newBook ? "New Book" : $row['name'];
 			padding: 30px;
 		}
 
-		.signup-form .form-group {
+		.book-form .form-group {
 			margin-bottom: 20px;
 		}
 
-		.signup-form input[type="checkbox"] {
+		.book-form input[type="checkbox"] {
 			margin-top: 3px;
 		}
 
-		.signup-form .btn {
+		.book-form .btn {
 			font-size: 16px;
 			font-weight: bold;
 			min-width: 140px;
 			outline: none !important;
 		}
 
-		.signup-form .row div:first-child {
+		.book-form .row div:first-child {
 			padding-right: 10px;
 		}
 
-		.signup-form .row div:last-child {
+		.book-form .row div:last-child {
 			padding-left: 10px;
 		}
 
-		.signup-form a {
+		.book-form a {
 			text-decoration: underline;
 		}
 
-		.signup-form a:hover {
+		.book-form a:hover {
 			text-decoration: none;
 		}
 
-		.signup-form form a {
+		.book-form form a {
 			color: #5cb85c;
 			text-decoration: none;
 		}
 
-		.signup-form form a:hover {
+		.book-form form a:hover {
 			text-decoration: underline;
 		}
 
@@ -228,35 +229,59 @@ $title = $newBook ? "New Book" : $row['name'];
 		<?php
 		} ?>
 	</div>
-	<div class="signup-form">
-		<form action="/examples/actions/confirmation.php" method="post">
+	<div class="book-form">
+		<form action="addBook.php" method="post">
 			<h2>Book Details</h2>
 			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
-					<div class="col-xs-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
-				</div>
+				<input type="text" class="form-control" name="uid" readonly="readonly" value="<?php echo $uid ?>">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="author" placeholder="Author" required="required">
+				<input type="text" class="form-control" name="name" placeholder="Book Name" required="required" <?php
+																												if (!$newBook) {
+																													echo "value=\"" . $row['name'] . "\"";
+																												} ?>>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="description" placeholder="Description" required="required">
+				<input type="text" class="form-control" name="author" placeholder="Author" required="required" <?php
+																												if (!$newBook) {
+																													echo "value=\"" . $row['author'] . "\"";
+																												} ?>>
 			</div>
 			<div class="form-group">
-				<input type="number" class="form-control" name="total" placeholder="Total Number Of Copies" required="required">
+				<input type="text" class="form-control" name="description" placeholder="Description" required="required" <?php
+																															if (!$newBook) {
+																																echo "value=\"" . $row['description'] . "\"";
+																															} ?>>
 			</div>
 			<div class="form-group">
-				<input type="number" class="form-control" name="total" placeholder="Number Of Copies Left" required="required">
+				<input type="number" class="form-control" name="total" placeholder="Total Number Of Copies" required="required" <?php
+																																if (!$newBook) {
+																																	echo "value=\"" . $row['total'] . "\"";
+																																} ?>>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="image_url" placeholder="Image URL" required="required">
+				<input type="number" class="form-control" name="left" placeholder="Number Of Copies Left" required="required" <?php
+																																if (!$newBook) {
+																																	echo "value=\"" . $row['left'] . "\"";
+																																} ?>>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="video_url" placeholder="Video URL" required="required">
+				<input type="text" class="form-control" name="image_url" placeholder="Image URL" required="required" <?php
+																														if (!$newBook) {
+																															echo "value=\"" . $row['image_url'] . "\"";
+																														} ?>>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="audio_url" placeholder="Audio URL" required="required">
+				<input type="text" class="form-control" name="video_url" placeholder="Video URL" required="required" <?php
+																														if (!$newBook) {
+																															echo "value=\"" . $row['video_url'] . "\"";
+																														} ?>>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="audio_url" placeholder="Audio URL" required="required" <?php
+																														if (!$newBook) {
+																															echo "value=\"" . $row['audio_url'] . "\"";
+																														} ?>>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-success btn-lg btn-block">Confirm Details</button>
