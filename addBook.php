@@ -10,7 +10,7 @@ $left = $_POST['left'];
 $image_url = $_POST['image_url'];
 $video_url = $_POST['video_url'];
 $audio_url = $_POST['audio_url'];
-if ($uid == 2) {
+if ($uid == 0) {
     $query = "INSERT INTO book(name, author, description, total, `left`, image_url, video_url, audio_url) VALUES('$name', '$author', '$description', '$total', '$left', '$image_url', '$video_url', '$audio_url');";
 } else {
     $query = "UPDATE book SET name='$name', author='$author', description='$description', total='$total', book.left='$left', image_url='$image_url', video_url='$video_url', audio_url='$audio_url' WHERE uid='$uid'";
