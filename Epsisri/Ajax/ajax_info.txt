@@ -1,0 +1,4 @@
+Hello
+
+This is my first Ajax Application.
+AJAX stands for Asynchronous JavaScript And XML.
